@@ -16,5 +16,6 @@ private:
 	sf::RenderWindow window;
 	KeyboardBinding keyboardBindings;
 	GameLevel level;
+	sf::Color backgroundColor{ 167, 252, 0, 255 };
 };
 
