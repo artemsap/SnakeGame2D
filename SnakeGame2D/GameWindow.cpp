@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 #include <iostream>
 
-GameWindow::GameWindow(const sf::VideoMode& mode, std::string header) : window(mode, header), level({10, 10})
+GameWindow::GameWindow(const sf::VideoMode& mode, std::string header) : window(mode, header), level({10, 10}, mode.size)
 {
 	GameSnake& snake = level.GetSnake();
 	keyboardBindings.bind(sf::Keyboard::Scancode::W, [&snake](){snake.moveUp();});
