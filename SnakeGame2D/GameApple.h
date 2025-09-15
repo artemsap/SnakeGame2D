@@ -9,6 +9,7 @@ public:
 	GameApple(float radius, std::size_t pointCount);
 	void Draw(sf::RenderWindow& window) override;
 private:
-	sf::CircleShape apple;
+	sf::CircleShape shape;
+	sf::Color color;
 };
 

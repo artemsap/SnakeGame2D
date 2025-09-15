@@ -14,6 +14,7 @@ public:
 	void moveRight();
 	void moveLeft();
 private:
-	std::vector<sf::CircleShape> snake;
+	std::vector<sf::CircleShape> circles;
+	sf::Color color;
 };
 

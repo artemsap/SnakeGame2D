@@ -5,12 +5,12 @@
 #include "KeyboardBinding.h"
 #include "GameLevel.h"
 
-class GameWindow
+class GameWindow 
 {
 public:
 	GameWindow(const sf::VideoMode& mode, std::string header);
 
-	void Run();
+	void Draw();
 
 private:
 	sf::RenderWindow window;
