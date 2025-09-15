@@ -7,3 +7,8 @@ void GameLevel::Draw(sf::RenderWindow& window)
 	snake.Draw(window);
 	apple.Draw(window);
 }
+
+GameSnake& GameLevel::GetSnake()
+{
+	return snake;
+}

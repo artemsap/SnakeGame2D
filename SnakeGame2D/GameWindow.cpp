@@ -3,54 +3,39 @@
 
 GameWindow::GameWindow(const sf::VideoMode& mode, std::string header) : window(mode, header)
 {
-   window.handleEvents(keyboardBindings);
+	GameSnake& snake = level.GetSnake();
+	keyboardBindings.bind(sf::Keyboard::Scancode::W, [&snake](){snake.moveUp();});
+	keyboardBindings.bind(sf::Keyboard::Scancode::S, [&snake](){snake.moveDown();});
+	keyboardBindings.bind(sf::Keyboard::Scancode::A, [&snake](){snake.moveLeft();});
+	keyboardBindings.bind(sf::Keyboard::Scancode::D, [&snake](){snake.moveRight();});
 }
 
 void GameWindow::Run()
 {
-    sf::SoundBuffer soundBuffer("sound.mp3");
-    sf::Sound sound(soundBuffer);
+	sf::SoundBuffer soundBuffer("sound.mp3");
+	sf::Sound sound(soundBuffer);
 
-    sf::Texture sphere("sphere.png");
-    sphere.setSmooth(true);
+	sf::Texture sphere("sphere.png");
+	sphere.setSmooth(true);
 
-    const sf::Vector2f imageSize = sf::Vector2f(sphere.getSize());
-    const sf::Vector2f winSize = sf::Vector2f(window.getSize());
-    const sf::Vector2f sprintScale = { winSize.x / imageSize.x, winSize.y / imageSize.y };
+	const sf::Vector2f imageSize = sf::Vector2f(sphere.getSize());
+	const sf::Vector2f winSize = sf::Vector2f(window.getSize());
+	const sf::Vector2f sprintScale = { winSize.x / imageSize.x, winSize.y / imageSize.y };
 
-    sf::Sprite sprite(sphere);
-    sprite.setScale(sprintScale);
+	sf::Sprite sprite(sphere);
+	sprite.setScale(sprintScale);
 
-    const auto onCloseLambda = [&](const sf::Event::Closed&)
-    {
-        window.close();
-    };
+	const auto onCloseLambda = [&](const sf::Event::Closed&)
+	{
+		window.close();
+	};
 
-    const auto keyPressedLambda = [&](const sf::Event::KeyPressed& keyPressedEvent)
-    {
-        std::cout << "the escape key was pressed" << std::endl;
-        std::cout << "scancode: " << static_cast<int>(keyPressedEvent.scancode) << std::endl;
-        std::cout << "code: " << static_cast<int>(keyPressedEvent.code) << std::endl;
-        std::cout << "control: " << keyPressedEvent.control << std::endl;
-        std::cout << "alt: " << keyPressedEvent.alt << std::endl;
-        std::cout << "shift: " << keyPressedEvent.shift << std::endl;
-        std::cout << "system: " << keyPressedEvent.system << std::endl;
-        std::cout << "description: " << sf::Keyboard::getDescription(keyPressedEvent.scancode).toAnsiString() << std::endl;
-        std::cout << "localize: " << static_cast<int>(sf::Keyboard::localize(keyPressedEvent.scancode)) << std::endl;
-        std::cout << "delocalize: " << static_cast<int>(sf::Keyboard::delocalize(keyPressedEvent.code)) << std::endl;
+	while (window.isOpen())
+	{
+		window.handleEvents(onCloseLambda, keyboardBindings);
 
-        if (keyPressedEvent.scancode == sf::Keyboard::Scancode::Enter)
-        {
-            sound.play();
-        }
-    };
-
-    while (window.isOpen())
-    {
-        window.handleEvents(onCloseLambda, keyPressedLambda);
-
-        window.clear();
-        window.draw(sprite);
-        window.display();
-    }
+		window.clear();
+		window.draw(sprite);
+		window.display();
+	}
 }

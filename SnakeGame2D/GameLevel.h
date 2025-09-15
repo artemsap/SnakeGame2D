@@ -8,6 +8,7 @@ class GameLevel : public IDraw
 {
 public:
 	void Draw(sf::RenderWindow& window) override;
+	GameSnake& GetSnake();
 private:
 	GameSnake snake;
 	GameApple apple{ 100, 30 };
