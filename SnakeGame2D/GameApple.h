@@ -4,14 +4,22 @@
 #include "IDraw.h"
 #include "GameSnake.h"
 
+class GameSnake;
+
 class GameApple : public IDraw
 {
 public:
-	GameApple(float radius, std::size_t pointCount);
+	GameApple(sf::Vector2f tileSize, sf::Vector2u gridSize);
 	void Draw(sf::RenderWindow& window) override;
-	void SetPosition(const sf::Vector2f& position);
+	void GenerateNewPos(const GameSnake& snake);
+	const sf::Vector2i& GetPositionOnGrid() const;
 private:
-	sf::CircleShape shape;
+	sf::Vector2i GeneratePositionOnGrid(const GameSnake& snake);
+
 	sf::Color color{ 0,0,0,255 };
+	sf::Vector2i positionOnGrid;
+	sf::Vector2f tileSize;
+	sf::Vector2u gridSize;
+	sf::CircleShape shape;
 };
 

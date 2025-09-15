@@ -1,8 +1,8 @@
 #pragma once
 
 #include "IDraw.h"
-#include "GameApple.h"
 #include "GameSnake.h"
+#include "GameApple.h"
 #include <vector>
 
 class GameLevel : public IDraw
@@ -12,15 +12,14 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 	GameSnake& GetSnake();
 private:
-	void generateLevel();
+	void generateGrid();
 
 	sf::Vector2u gridSize;
 	std::vector<sf::Vertex> grid;
 	sf::Color gridColor{ 127, 202, 0, 255 };
-	float tileWidth;
-	float tileHeight;
+	sf::Vector2f tileSize;
 
-	GameSnake snake;
 	GameApple apple;
+	GameSnake snake;
 };
 

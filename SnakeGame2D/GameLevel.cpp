@@ -1,9 +1,13 @@
 #include "GameLevel.h"
 
-GameLevel::GameLevel(sf::Vector2f sizeLevel, sf::Vector2f windowSize) 
-	: gridSize(sizeLevel), tileWidth(windowSize.x / gridSize.x), tileHeight(windowSize.y / gridSize.y), apple(std::min(tileWidth, tileHeight) / 3, 32)
+GameLevel::GameLevel(sf::Vector2f sizeLevel, sf::Vector2f windowSize) :
+	gridSize(sizeLevel), 
+	tileSize(windowSize.x / gridSize.x, windowSize.y / gridSize.y),
+	apple(tileSize, gridSize),
+	snake(apple, tileSize)
 {
-	generateLevel();
+	generateGrid();
+	apple.GenerateNewPos(snake);
 }
 
 void GameLevel::Draw(sf::RenderWindow& window)
@@ -11,6 +15,7 @@ void GameLevel::Draw(sf::RenderWindow& window)
 	window.draw(grid.data(), grid.size(), sf::PrimitiveType::Lines);
 	snake.Draw(window);
 	apple.Draw(window);
+	snake.MoveOneStep();
 }
 
 GameSnake& GameLevel::GetSnake()
@@ -18,18 +23,18 @@ GameSnake& GameLevel::GetSnake()
 	return snake;
 }
 
-void GameLevel::generateLevel()
+void GameLevel::generateGrid()
 {
-	grid.reserve(static_cast<size_t>(4 * tileHeight * tileWidth));
+	grid.reserve(static_cast<size_t>(4 * tileSize.x * tileSize.y));
 
 	for (size_t i = 0; i < gridSize.x; i++)
 	{
 		for (size_t j = 0; j < gridSize.y; j++)
 		{
-			grid.push_back({ { i * tileWidth, j * tileHeight }, gridColor });
-			grid.push_back({ { i * tileWidth, (j + 1) * tileHeight }, gridColor });
-			grid.push_back({ { i * tileWidth, j * tileHeight }, gridColor });
-			grid.push_back({ { (i + 1) * tileWidth, j * tileHeight }, gridColor });
+			grid.push_back({ { i * tileSize.x, j * tileSize.y }, gridColor });
+			grid.push_back({ { i * tileSize.x, (j + 1) * tileSize.y }, gridColor });
+			grid.push_back({ { i * tileSize.x, j * tileSize.y }, gridColor });
+			grid.push_back({ { (i + 1) * tileSize.x, j * tileSize.y }, gridColor });
 		}
 	}
 }
