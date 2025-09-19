@@ -32,6 +32,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 	void MoveOneStep();
 	void ChangeDirection(Direction direction);
+	const std::vector<SnakeElementInfo>& GetSnakeElelmenets() const;
+
 private:
 	void addCircle();
 	bool checkApple();

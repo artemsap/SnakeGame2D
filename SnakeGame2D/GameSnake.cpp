@@ -81,6 +81,11 @@ void GameSnake::ChangeDirection(Direction direction)
 	}
 }
 
+const std::vector<GameSnake::SnakeElementInfo>& GameSnake::GetSnakeElelmenets() const
+{
+	return snakeElements;
+}
+
 void GameSnake::addCircle()
 {
 	std::cout << "SNAKE IS GROWING\n";

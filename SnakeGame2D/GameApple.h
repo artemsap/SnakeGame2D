@@ -14,7 +14,7 @@ public:
 	void GenerateNewPos(const GameSnake& snake);
 	const sf::Vector2i& GetPositionOnGrid() const;
 private:
-	sf::Vector2i GeneratePositionOnGrid(const GameSnake& snake);
+	sf::Vector2i generateRandomPositionOnGrid(const GameSnake& snake);
 
 	const sf::Color color{ 0, 0, 0, 255 };
 
