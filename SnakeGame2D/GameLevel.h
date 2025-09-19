@@ -20,10 +20,16 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 	GameSnake& GetSnake();
 	bool IsPlayerLose() const;
+
+	int GetPoints() const;
+
 private:
 	void generateGrid();
 
 	const sf::Color gridColor{ 127, 202, 0, 255 };
+	const sf::Font font;
+	sf::Text pointsText;
+	sf::Text speedText;
 
 	sf::Vector2u levelSize;
 	sf::Vector2f tileSize;
@@ -31,5 +37,8 @@ private:
 
 	GameApple apple;
 	GameSnake snake;
+
+	int points = 0;
+	bool lose = false;
 };
 

@@ -19,6 +19,13 @@ public:
 		LEFT = 3
 	};
 
+	enum class StepResult
+	{
+		EAT_APPLE,
+		DEAD,
+		NONE
+	};
+
 private:
 	struct SnakeElementInfo
 	{
@@ -41,11 +48,10 @@ private:
 public:
 	GameSnake(float speed, GameApple& apple, const sf::Vector2f& tileSize, const sf::Vector2u& levelSize);
 	void Draw(sf::RenderWindow& window) override;
-	void MoveOneStep();
+	StepResult MoveOneStep();
 	void ChangeHeadDirection(Direction direction);
 	const std::vector<SnakeElementInfo>& GetSnakeElelmenets() const;
-	bool IsPlayerLose() const;
-
+	float GetSpeed() const;
 private:
 	void addNewSnakeElement(sf::Vector2i gridPosition);
 	bool checkAppleCollision();
@@ -65,7 +71,5 @@ private:
 	sf::CircleShape baseShape;
 	Direction headDirection;
 	std::vector<SnakeElementInfo> snakeElements;
-
-	bool lose = false;
 };
 

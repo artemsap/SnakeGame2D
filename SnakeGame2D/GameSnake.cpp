@@ -23,7 +23,7 @@ void GameSnake::Draw(sf::RenderWindow& window)
 	}
 }
 
-void GameSnake::MoveOneStep()
+GameSnake::StepResult GameSnake::MoveOneStep()
 {
 	if (clock.getElapsedTime().asSeconds() > 1 / speed)
 	{
@@ -45,14 +45,16 @@ void GameSnake::MoveOneStep()
 			addNewSnakeElement(prevGridPosition);
 			apple.GenerateNewPos(*this);
 			speed += 0.1f;
+			return StepResult::EAT_APPLE;
 		}
 
 		if (checkSelfCollision() || checkWallCollision())
 		{
-			lose = true;
-			std::cout << "YOU LOOSE\n";
+			return StepResult::DEAD;
 		}
 	}
+
+	return StepResult::NONE;
 }
 
 void GameSnake::ChangeHeadDirection(Direction direction)
@@ -73,9 +75,9 @@ const std::vector<GameSnake::SnakeElementInfo>& GameSnake::GetSnakeElelmenets() 
 	return snakeElements;
 }
 
-bool GameSnake::IsPlayerLose() const
+float GameSnake::GetSpeed() const
 {
-	return lose;
+	return speed;
 }
 
 void GameSnake::addNewSnakeElement(sf::Vector2i gridPosition)
