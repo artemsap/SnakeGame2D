@@ -80,7 +80,6 @@ bool GameSnake::IsPlayerLose() const
 
 void GameSnake::addNewSnakeElement(sf::Vector2i gridPosition)
 {
-	std::cout << "SNAKE IS GROWING\n";
 	auto snakeElement = SnakeElementInfo{ baseShape, gridPosition };
 	snakeElement.shape.setPosition({ gridPosition.x * tileSize.x, gridPosition.y * tileSize.y });
 	snakeElements.push_back(snakeElement);
