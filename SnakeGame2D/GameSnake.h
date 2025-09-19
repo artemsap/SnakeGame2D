@@ -25,6 +25,19 @@ private:
 		sf::CircleShape shape;
 		sf::Vector2i gridPosition;
 		Direction direction;
+
+		SnakeElementInfo(sf::CircleShape shape_, sf::Vector2i gridPosition_, Direction direction_)
+		{
+			shape = shape_;
+			gridPosition = gridPosition;
+			direction = direction_;
+		}
+
+		void SetGridPosition(sf::Vector2i newPos, const sf::Vector2f& tileSize)
+		{
+			gridPosition = newPos;
+			shape.setPosition({ gridPosition.x * tileSize.x, gridPosition.y * tileSize.y });
+		}
 	};
 
 public:
@@ -36,8 +49,8 @@ public:
 	bool IsPlayerLose() const;
 
 private:
-	void addCircle();
-	bool checkApple();
+	void addNewSnakeElement();
+	bool checkAppleCollision();
 	bool checkSelfCollision();
 	bool checkWallCollision();
 
@@ -49,7 +62,7 @@ private:
 
 	sf::Clock clock;
 
-	const float speed = 2.0f; //tiles per sec
+	float speed = 2.0f; //tiles per sec
 	const sf::Color baseColor = { 30, 89, 69, 255 };
 	sf::CircleShape baseShape;
 	std::vector<SnakeElementInfo> snakeElements;

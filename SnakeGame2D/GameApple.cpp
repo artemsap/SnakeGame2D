@@ -34,22 +34,24 @@ sf::Vector2i GameApple::generateRandomPositionOnGrid(const GameSnake& snake)
 {
 	sf::Vector2i applePosition;
 	
-	bool isGenerated = false;
-	while (!isGenerated)
+	auto check = [&snake, &applePosition]()
 	{
-		applePosition.x = rand() % levelSize.x;
-		applePosition.y = rand() % levelSize.y;
-
 		for (const auto& element : snake.GetSnakeElelmenets())
 		{
 			if (applePosition == element.gridPosition)
 			{
-				break;
+				return false;
 			}
 		}
+		return true;
+	};
 
-		isGenerated = true;
-	}
+	do
+	{
+		applePosition.x = rand() % levelSize.x;
+		applePosition.y = rand() % levelSize.y;
+
+	} while (!check());
 
 	return applePosition;
 }

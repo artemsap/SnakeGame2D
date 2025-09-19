@@ -12,7 +12,7 @@ public:
 	{
 		uint32_t width = 10;
 		uint32_t height = 10;
-		float snakeSpeed = 5.0f;
+		float snakeSpeed = 2.0f;
 	};
 
 public:
