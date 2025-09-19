@@ -33,8 +33,8 @@ void GameWindow::Draw()
 void GameWindow::bindKeys()
 {
 	GameSnake& snake = level.GetSnake();
-	keyboardBindings.bind(sf::Keyboard::Scancode::W, [&snake]()	{ snake.ChangeDirection(GameSnake::Direction::UP); });
-	keyboardBindings.bind(sf::Keyboard::Scancode::S, [&snake]()	{ snake.ChangeDirection(GameSnake::Direction::DOWN); });
-	keyboardBindings.bind(sf::Keyboard::Scancode::A, [&snake]()	{ snake.ChangeDirection(GameSnake::Direction::LEFT); });
-	keyboardBindings.bind(sf::Keyboard::Scancode::D, [&snake]()	{ snake.ChangeDirection(GameSnake::Direction::RIGHT); });
+	keyboardBindings.bind(sf::Keyboard::Scancode::W, [&snake]()	{ snake.ChangeHeadDirection(GameSnake::Direction::UP); });
+	keyboardBindings.bind(sf::Keyboard::Scancode::S, [&snake]()	{ snake.ChangeHeadDirection(GameSnake::Direction::DOWN); });
+	keyboardBindings.bind(sf::Keyboard::Scancode::A, [&snake]()	{ snake.ChangeHeadDirection(GameSnake::Direction::LEFT); });
+	keyboardBindings.bind(sf::Keyboard::Scancode::D, [&snake]()	{ snake.ChangeHeadDirection(GameSnake::Direction::RIGHT); });
 }

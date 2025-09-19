@@ -24,13 +24,11 @@ private:
 	{
 		sf::CircleShape shape;
 		sf::Vector2i gridPosition;
-		Direction direction;
 
-		SnakeElementInfo(sf::CircleShape shape_, sf::Vector2i gridPosition_, Direction direction_)
+		SnakeElementInfo(sf::CircleShape shape_, sf::Vector2i gridPosition_)
 		{
 			shape = shape_;
 			gridPosition = gridPosition;
-			direction = direction_;
 		}
 
 		void SetGridPosition(sf::Vector2i newPos, const sf::Vector2f& tileSize)
@@ -44,12 +42,12 @@ public:
 	GameSnake(float speed, GameApple& apple, const sf::Vector2f& tileSize, const sf::Vector2u& levelSize);
 	void Draw(sf::RenderWindow& window) override;
 	void MoveOneStep();
-	void ChangeDirection(Direction direction);
+	void ChangeHeadDirection(Direction direction);
 	const std::vector<SnakeElementInfo>& GetSnakeElelmenets() const;
 	bool IsPlayerLose() const;
 
 private:
-	void addNewSnakeElement();
+	void addNewSnakeElement(sf::Vector2i gridPosition);
 	bool checkAppleCollision();
 	bool checkSelfCollision();
 	bool checkWallCollision();
@@ -65,6 +63,7 @@ private:
 	float speed = 2.0f; //tiles per sec
 	const sf::Color baseColor = { 30, 89, 69, 255 };
 	sf::CircleShape baseShape;
+	Direction headDirection;
 	std::vector<SnakeElementInfo> snakeElements;
 
 	bool lose = false;

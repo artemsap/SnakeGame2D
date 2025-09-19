@@ -10,7 +10,8 @@ GameSnake::GameSnake(float _speed, GameApple& _apple, const sf::Vector2f& _tileS
 	, baseShape(std::min(tileSize.x, tileSize.y) / 2)
 	, levelSize(_levelSize)
 {
-	snakeElements.push_back({ baseShape, sf::Vector2i{ 0,0 }, Direction::RIGHT });
+	headDirection = Direction::RIGHT;
+	snakeElements.push_back({ baseShape, sf::Vector2i{ 0,0 }});
 }
 
 void GameSnake::Draw(sf::RenderWindow& window)
@@ -21,24 +22,7 @@ void GameSnake::Draw(sf::RenderWindow& window)
 	}
 }
 
-void printDirection(GameSnake::Direction dir)
-{
-	switch (dir)
-	{
-	case GameSnake::Direction::UP:
-		std::cout << "DIRECTION UP\n";
-		break;
-	case GameSnake::Direction::DOWN:
-		std::cout << "DIRECTION DOWN\n";
-		break;
-	case GameSnake::Direction::LEFT:
-		std::cout << "DIRECTION LEFT\n";
-		break;
-	case GameSnake::Direction::RIGHT:
-		std::cout << "DIRECTION RIGHT\n";
-		break;
-	}
-}
+
 
 void GameSnake::MoveOneStep()
 {
@@ -49,27 +33,20 @@ void GameSnake::MoveOneStep()
 
 		auto& front = snakeElements.front();
 		auto prevGridPosition = front.gridPosition;
-		front.SetGridPosition(front.gridPosition + delta[static_cast<size_t>(front.direction)], tileSize);
+		front.SetGridPosition(front.gridPosition + delta[static_cast<size_t>(headDirection)], tileSize);
 		
-		auto prevDirection = front.direction;
-
 		std::cout << std::endl;
-		printDirection(front.direction);
 
 		for (size_t i = 1; i < snakeElements.size(); i++)
 		{
 			auto currentPosition = snakeElements[i].gridPosition;
-			auto currentDirection = snakeElements[i].direction;
 			snakeElements[i].SetGridPosition(prevGridPosition, tileSize);
-			snakeElements[i].direction = prevDirection;
 			prevGridPosition = currentPosition;
-			prevDirection = currentDirection;
-			printDirection(snakeElements[i].direction);
 		}
 
 		if (checkAppleCollision())
 		{
-			addNewSnakeElement();
+			addNewSnakeElement(prevGridPosition);
 			apple.GenerateNewPos(*this);
 			speed += 0.1f;
 		}
@@ -82,18 +59,17 @@ void GameSnake::MoveOneStep()
 	}
 }
 
-void GameSnake::ChangeDirection(Direction direction)
+void GameSnake::ChangeHeadDirection(Direction direction)
 {
-	auto& frontElement = snakeElements.front();
-	if (frontElement.direction == Direction::UP && direction == Direction::DOWN ||
-		frontElement.direction == Direction::DOWN && direction == Direction::UP ||
-		frontElement.direction == Direction::RIGHT && direction == Direction::LEFT ||
-		frontElement.direction == Direction::LEFT && direction == Direction::RIGHT)
+	if (headDirection == Direction::UP && direction == Direction::DOWN ||
+		headDirection == Direction::DOWN && direction == Direction::UP ||
+		headDirection == Direction::RIGHT && direction == Direction::LEFT ||
+		headDirection == Direction::LEFT && direction == Direction::RIGHT)
 	{
 		return;
 	}
 
-	frontElement.direction = direction;
+	headDirection = direction;
 }
 
 const std::vector<GameSnake::SnakeElementInfo>& GameSnake::GetSnakeElelmenets() const
@@ -106,12 +82,10 @@ bool GameSnake::IsPlayerLose() const
 	return lose;
 }
 
-void GameSnake::addNewSnakeElement()
+void GameSnake::addNewSnakeElement(sf::Vector2i gridPosition)
 {
 	std::cout << "SNAKE IS GROWING\n";
-	auto backElement = snakeElements.back();
-	auto gridPosition = backElement.gridPosition - delta[static_cast<size_t>(backElement.direction)];
-	auto snakeElement = SnakeElementInfo{ baseShape, gridPosition, backElement.direction };
+	auto snakeElement = SnakeElementInfo{ baseShape, gridPosition };
 	snakeElement.shape.setPosition({ gridPosition.x * tileSize.x, gridPosition.y * tileSize.y });
 	snakeElements.push_back(snakeElement);
 }
