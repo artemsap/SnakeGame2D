@@ -16,7 +16,8 @@ public:
 private:
 	sf::Vector2i generateRandomPositionOnGrid(const GameSnake& snake);
 
-	const sf::Color color{ 0, 0, 0, 255 };
+	const sf::Color color{ 255, 20, 0, 255 };
+	const float sizeRatio = 0.33f;
 
 	sf::Vector2i positionOnGrid;
 	sf::Vector2f tileSize;

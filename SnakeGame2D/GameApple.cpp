@@ -4,10 +4,13 @@
 #include <cstdlib>
 
 GameApple::GameApple(sf::Vector2f tileSize_, sf::Vector2u gridSize_) 
-	: tileSize(tileSize_), shape(std::min(tileSize.x, tileSize.y) / 3), gridSize(gridSize_)
+	: tileSize(tileSize_), shape(std::min(tileSize.x, tileSize.y) * sizeRatio), gridSize(gridSize_)
 {
 	srand(static_cast<unsigned>(time(0)));
+
+	shape.setOrigin(-tileSize * sizeRatio * 0.5f);
 	shape.setPosition(-tileSize);
+	shape.setFillColor(color);
 }
 
 void GameApple::Draw(sf::RenderWindow& window)
