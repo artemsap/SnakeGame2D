@@ -3,8 +3,8 @@
 
 #include <cstdlib>
 
-GameApple::GameApple(sf::Vector2f tileSize_, sf::Vector2u gridSize_) 
-	: tileSize(tileSize_), shape(std::min(tileSize.x, tileSize.y) * sizeRatio), gridSize(gridSize_)
+GameApple::GameApple(sf::Vector2f tileSize_, sf::Vector2u levelSize_)
+	: tileSize(tileSize_), shape(std::min(tileSize.x, tileSize.y) * sizeRatio), levelSize(levelSize_)
 {
 	srand(static_cast<unsigned>(time(0)));
 
@@ -37,8 +37,8 @@ sf::Vector2i GameApple::generateRandomPositionOnGrid(const GameSnake& snake)
 	bool isGenerated = false;
 	while (!isGenerated)
 	{
-		applePosition.x = rand() % gridSize.x;
-		applePosition.y = rand() % gridSize.y;
+		applePosition.x = rand() % levelSize.x;
+		applePosition.y = rand() % levelSize.y;
 
 		for (const auto& element : snake.GetSnakeElelmenets())
 		{

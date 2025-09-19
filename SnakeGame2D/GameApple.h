@@ -9,7 +9,7 @@ class GameSnake;
 class GameApple : public IDraw
 {
 public:
-	GameApple(sf::Vector2f tileSize, sf::Vector2u gridSize);
+	GameApple(sf::Vector2f tileSize, sf::Vector2u levelSize);
 	void Draw(sf::RenderWindow& window) override;
 	void GenerateNewPos(const GameSnake& snake);
 	const sf::Vector2i& GetPositionOnGrid() const;
@@ -21,6 +21,6 @@ private:
 
 	sf::Vector2i positionOnGrid;
 	sf::Vector2f tileSize;
-	sf::Vector2u gridSize;
+	sf::Vector2u levelSize;
 	sf::CircleShape shape;
 };

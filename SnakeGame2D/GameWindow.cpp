@@ -22,6 +22,11 @@ void GameWindow::Draw()
 		window.clear(backgroundColor);
 		level.Draw(window);
 		window.display();
+
+		if (level.IsPlayerLose())
+		{
+			window.close();
+		}
 	}
 }
 

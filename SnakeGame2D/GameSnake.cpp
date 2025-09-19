@@ -3,11 +3,12 @@
 
 #include <iostream>
 
-GameSnake::GameSnake(float _speed, GameApple& _apple, sf::Vector2f _gridSize) 
+GameSnake::GameSnake(float _speed, GameApple& _apple, const sf::Vector2f& _tileSize, const sf::Vector2u& _levelSize)
 	: speed(_speed)
 	, apple(_apple)
-	, gridSize(_gridSize)
-	, baseShape(std::min(gridSize.x, gridSize.y) / 2)
+	, tileSize(_tileSize)
+	, baseShape(std::min(tileSize.x, tileSize.y) / 2)
+	, levelSize(_levelSize)
 {
 	snakeElements.push_back({ baseShape, sf::Vector2i(0, 0), Direction::RIGHT });
 }
@@ -33,7 +34,7 @@ void GameSnake::MoveOneStep()
 		auto prevDirection = front.direction;
 		gridPosition += delta[static_cast<size_t>(front.direction)];
 		front.gridPosition = gridPosition;
-		front.shape.setPosition({ gridPosition.x * gridSize.x, gridPosition.y * gridSize.y });
+		front.shape.setPosition({ gridPosition.x * tileSize.x, gridPosition.y * tileSize.y });
 		
 		for (size_t i = 1; i < snakeElements.size(); i++)
 		{
@@ -41,7 +42,7 @@ void GameSnake::MoveOneStep()
 			auto prevprevdir = snakeElements[i].direction;
 			snakeElements[i].gridPosition = prevGridPosition;
 			snakeElements[i].direction = prevDirection;
-			snakeElements[i].shape.setPosition({ snakeElements[i].gridPosition.x * gridSize.x, snakeElements[i].gridPosition.y * gridSize.y });
+			snakeElements[i].shape.setPosition({ snakeElements[i].gridPosition.x * tileSize.x, snakeElements[i].gridPosition.y * tileSize.y });
 			prevGridPosition = prevprev;
 			prevDirection = prevprevdir;
 		}
@@ -52,8 +53,9 @@ void GameSnake::MoveOneStep()
 			apple.GenerateNewPos(*this);
 		}
 
-		if (checkSelfCollision())
+		if (checkSelfCollision() || checkWallCollision())
 		{
+			lose = true;
 			std::cout << "YOU LOOSE\n";
 		}
 	}
@@ -86,6 +88,11 @@ const std::vector<GameSnake::SnakeElementInfo>& GameSnake::GetSnakeElelmenets() 
 	return snakeElements;
 }
 
+bool GameSnake::IsPlayerLose() const
+{
+	return lose;
+}
+
 void GameSnake::addCircle()
 {
 	std::cout << "SNAKE IS GROWING\n";
@@ -110,7 +117,7 @@ void GameSnake::addCircle()
 
 	auto gridPosition = backElement.gridPosition - delta[index];
 	snakeElements.push_back({ baseShape, gridPosition, backElement.direction});
-	snakeElements.back().shape.setPosition({ gridPosition.x * gridSize.x, gridPosition.y * gridSize.y });
+	snakeElements.back().shape.setPosition({ gridPosition.x * tileSize.x, gridPosition.y * tileSize.y });
 }
 
 bool GameSnake::checkApple()
@@ -120,5 +127,26 @@ bool GameSnake::checkApple()
 
 bool GameSnake::checkSelfCollision()
 {
+	sf::Vector2i headPosition = snakeElements.front().gridPosition;
+
+	for (size_t i = 1; i < snakeElements.size(); i++)
+	{
+		if (headPosition == snakeElements[i].gridPosition)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool GameSnake::checkWallCollision()
+{
+	sf::Vector2i headPosition = snakeElements.front().gridPosition;
+	if (headPosition.x < 0 || headPosition.y < 0 || headPosition.x == levelSize.x || headPosition.y == levelSize.y)
+	{
+		return true;
+	}
+
 	return false;
 }
