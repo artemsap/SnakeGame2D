@@ -10,6 +10,7 @@ GameSnake::GameSnake(float _speed, GameApple& _apple, const sf::Vector2f& _tileS
 	, baseShape(std::min(tileSize.x, tileSize.y) / 2)
 	, levelSize(_levelSize)
 {
+	baseShape.setFillColor(baseColor);
 	headDirection = Direction::RIGHT;
 	snakeElements.push_back({ baseShape, sf::Vector2i{ 0,0 }});
 }
@@ -22,21 +23,16 @@ void GameSnake::Draw(sf::RenderWindow& window)
 	}
 }
 
-
-
 void GameSnake::MoveOneStep()
 {
 	if (clock.getElapsedTime().asSeconds() > 1 / speed)
 	{
 		clock.restart();
-		std::cout << "Move One Step \n";
 
 		auto& front = snakeElements.front();
 		auto prevGridPosition = front.gridPosition;
 		front.SetGridPosition(front.gridPosition + delta[static_cast<size_t>(headDirection)], tileSize);
 		
-		std::cout << std::endl;
-
 		for (size_t i = 1; i < snakeElements.size(); i++)
 		{
 			auto currentPosition = snakeElements[i].gridPosition;
