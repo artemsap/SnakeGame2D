@@ -16,10 +16,10 @@ public:
 private:
 	sf::Vector2i GeneratePositionOnGrid(const GameSnake& snake);
 
-	sf::Color color{ 0,0,0,255 };
+	const sf::Color color{ 0, 0, 0, 255 };
+
 	sf::Vector2i positionOnGrid;
 	sf::Vector2f tileSize;
 	sf::Vector2u gridSize;
 	sf::CircleShape shape;
 };
-

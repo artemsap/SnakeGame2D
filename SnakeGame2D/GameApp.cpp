@@ -1,7 +1,7 @@
 #include "GameApp.h"
 
-GameApp::GameApp(uint32_t width, uint32_t height, const std::string& window_header)
-	: window(sf::VideoMode({ width, height }), window_header)
+GameApp::GameApp(const GameWindow::WindowSettings& windowSettings, const GameLevel::LevelSettings& levelSettings) 
+	: window(windowSettings, levelSettings)
 {}
 
 void GameApp::Run()

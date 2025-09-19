@@ -19,7 +19,16 @@ public:
 		LEFT = 3
 	};
 
-	GameSnake(GameApple& apple, sf::Vector2f _gridSize);
+private:
+	struct SnakeElementInfo
+	{
+		sf::CircleShape shape;
+		sf::Vector2i gridPosition;
+		Direction direction;
+	};
+
+public:
+	GameSnake(float speed, GameApple& apple, sf::Vector2f gridSize);
 	void Draw(sf::RenderWindow& window) override;
 	void MoveOneStep();
 	void ChangeDirection(Direction direction);
@@ -28,16 +37,9 @@ private:
 	bool checkApple();
 	bool checkSelfCollision();
 
-	struct SnakeElementInfo
-	{
-		sf::CircleShape shape; 
-		sf::Vector2i gridPosition;
-		Direction direction;
-	};
-
-	const std::array<sf::Vector2i, 4> delta = { sf::Vector2i(0,-1), sf::Vector2i(0,1), sf::Vector2i{1,0}, sf::Vector2i{-1,0} };
+	const std::array<sf::Vector2i, 4> delta = { sf::Vector2i{0, -1}, sf::Vector2i{0, 1}, sf::Vector2i{1, 0}, sf::Vector2i{-1, 0} };
 	const sf::Vector2f gridSize;
-	const float speed = 0.5f;
+	const float speed = 2.0f; //tiles per sec
 
 	const sf::Color baseColor = { 30, 89, 69, 255 };
 	sf::CircleShape baseShape;

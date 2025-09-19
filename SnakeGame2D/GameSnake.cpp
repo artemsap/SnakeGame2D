@@ -3,7 +3,11 @@
 
 #include <iostream>
 
-GameSnake::GameSnake(GameApple& _apple, sf::Vector2f _gridSize) : apple(_apple), gridSize(_gridSize), baseShape(std::min(gridSize.x, gridSize.y) / 2)
+GameSnake::GameSnake(float _speed, GameApple& _apple, sf::Vector2f _gridSize) 
+	: speed(_speed)
+	, apple(_apple)
+	, gridSize(_gridSize)
+	, baseShape(std::min(gridSize.x, gridSize.y) / 2)
 {
 	snakeElements.push_back({ baseShape, sf::Vector2i(0, 0), Direction::RIGHT });
 }
@@ -18,7 +22,7 @@ void GameSnake::Draw(sf::RenderWindow& window)
 
 void GameSnake::MoveOneStep()
 {
-	if (clock.getElapsedTime().asSeconds() > speed)
+	if (clock.getElapsedTime().asSeconds() > 1 / speed)
 	{
 		clock.restart();
 		std::cout << "Move One Step \n";

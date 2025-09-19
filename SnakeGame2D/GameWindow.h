@@ -5,17 +5,26 @@
 #include "KeyboardBinding.h"
 #include "GameLevel.h"
 
-class GameWindow 
+class GameWindow
 {
 public:
-	GameWindow(const sf::VideoMode& mode, std::string header);
+	struct WindowSettings
+	{
+		uint32_t width = 1024;
+		uint32_t height = 1024;
+		std::string title = "Title";
+	};
 
+public:
+	GameWindow(const WindowSettings& windowSettings, const GameLevel::LevelSettings& levelSettings);
 	void Draw();
 
 private:
+	void bindKeys();
+
+	const sf::Color backgroundColor{ 167, 252, 0, 255 };
 	sf::RenderWindow window;
+
 	KeyboardBinding keyboardBindings;
 	GameLevel level;
-	sf::Color backgroundColor{ 167, 252, 0, 255 };
 };
-

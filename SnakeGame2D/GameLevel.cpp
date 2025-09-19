@@ -1,10 +1,10 @@
 #include "GameLevel.h"
 
-GameLevel::GameLevel(sf::Vector2f sizeLevel, sf::Vector2f windowSize) :
-	gridSize(sizeLevel), 
-	tileSize(windowSize.x / gridSize.x, windowSize.y / gridSize.y),
+GameLevel::GameLevel(const LevelSettings& settings, const sf::Vector2u& windowSize) :
+	gridSize(settings.height, settings.width),
+	tileSize(static_cast<float>(windowSize.x) / gridSize.x, static_cast<float>(windowSize.y) / gridSize.y),
 	apple(tileSize, gridSize),
-	snake(apple, tileSize)
+	snake(settings.snakeSpeed, apple, tileSize)
 {
 	generateGrid();
 	apple.GenerateNewPos(snake);
