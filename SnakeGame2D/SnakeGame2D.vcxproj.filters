@@ -1,63 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Исходные файлы">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Game">
+      <UniqueIdentifier>{e65d88de-e9cb-4a08-b963-79e35a0b1695}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Game\Abstract">
+      <UniqueIdentifier>{d70a1063-dbf4-4c57-86de-fde42b10f63d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Game\Keyboard">
+      <UniqueIdentifier>{f129cbd4-d654-44d5-b5a9-5dcdee3c5e5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="GameApp.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="GameWindow.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardBinding.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSnake.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="GameApple.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="GameLevel.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSnake.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWindow.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="KeyboardBinding.cpp">
+      <Filter>Game\Keyboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameApp.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="GameWindow.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardBinding.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSnake.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="GameApp.h">
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="GameApple.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="GameLevel.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSnake.h">
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="IDraw.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Game\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardBinding.h">
+      <Filter>Game\Keyboard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
